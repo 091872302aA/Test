@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu</title>
+</head>
+<body>
+    <h1>Menu</h1>
+    <div id="menu"></div>
+
+    <h2>Your Order</h2>
+    <div id="order"></div>
+    <button onclick="placeOrder()">Place Order</button>
+
+    <script>
+        const menu = [
+            { id: 1, name: 'ข้าวผัด', price: 50 },
+            { id: 2, name: 'ผัดไทย', price: 60 },
+            { id: 3, name: 'ส้มตำ', price: 40 },
+        ];
+
+        let order = [];
+
+        // ดึงเมนูมาแสดง
+        const menuDiv = document.getElementById('menu');
+        menu.forEach(item => {
+            const itemDiv = document.createElement('div');
+            itemDiv.innerHTML = `
+                <p>${item.name} - ฿${item.price}</p>
+                <button onclick="addToOrder(${item.id}, '${item.name}', ${item.price})">Add to Order</button>
+            `;
+            menuDiv.appendChild(itemDiv);
+        });
+
+        // เพิ่มเมนูลงในคำสั่งซื้อ
+        function addToOrder(id, name, price) {
+            const existingItem = order.find(item => item.id === id);
+            if (existingItem) {
+                existingItem.quantity++;
+            } else {
+                order.push({ id, name, price, quantity: 1 });
+            }
+            displayOrder();
+        }
+
+        // แสดงคำสั่งซื้อ
+        function displayOrder() {
+            const orderDiv = document.getElementById('order');
+            orderDiv.innerHTML = '';
+            order.forEach(item => {
+                const itemDiv = document.createElement('div');
+                itemDiv.innerHTML = ${item.name} x ${item.quantity} - ฿${item.price * item.quantity};
+                orderDiv.appendChild(itemDiv);
+            });
+        }
+
+        // ส่งคำสั่งซื้อ (ใช้ sessionStorage เพื่อจำลองการจัดเก็บข้อมูลใน session)
+        function placeOrder() {
+            const tableId = new URLSearchParams(window.location.search).get('table');
+            sessionStorage.setItem(order_table_${tableId}, JSON.stringify(order));
+            alert('Order placed successfully!');
+            order = [];
+            displayOrder();
+        }
+    </script>
+</body>
+</html>

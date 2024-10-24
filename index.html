@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Order System</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+</head>
+<body>
+    <h1>Scan QR Code to Order</h1>
+    <div id="qrcode"></div>
+    
+    <script>
+        // กำหนด ID โต๊ะ ตัวอย่างเป็นโต๊ะที่ 1
+        const tableId = 1;
+        const url = https://github.com/091872302aA/again
+        new QRCode(document.getElementById("qrcode"), url);
+    </script>
+</body>
+</html>
